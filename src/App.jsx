@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { Container } from '@mui/material';
 import './App.css';
 
 export const App = () => {
-  const [count, setCount] = useState(0);
-
-  return <p></p>;
+  return (
+    <Container maxWidth="lg">
+      <h1>Hello It is me</h1>
+    </Container>
+  );
 };
