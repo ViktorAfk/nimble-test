@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   addContact,
+  addTag,
   deleteContact,
   getAllContacts,
   getOneContact,
@@ -18,7 +19,7 @@ export const useContactsListQuery = () => {
 export const useOneContactQuery = (contactId) => {
   return useQuery({
     queryKey: ['contact', contactId],
-    queryFn: getOneContact,
+    queryFn: () => getOneContact(contactId),
   });
 };
 
@@ -39,6 +40,16 @@ export const useAddNewContactQuery = () => {
     mutationFn: addContact,
     onSuccess: () => {
       queryClient.invalidateQueries(['contacts']);
+    },
+  });
+};
+
+export const useAddTagQuery = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ contactId, tags }) => addTag(contactId, tags),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['contact']);
     },
   });
 };
